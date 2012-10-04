@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/chrissrogers/grunt-move.git"
+    "url": "git://github.com/chrissrogers/grunt-wrap.git"
   },
   "bugs": {
-    "url": "https://github.com/chrissrogers/grunt-move/issues"
+    "url": "https://github.com/chrissrogers/grunt-wrap/issues"
   },
   "licenses": [{
     "type": "MIT",
-    "url": "https://github.com/chrissrogers/grunt-move/blob/master/LICENSE-MIT"
+    "url": "https://github.com/chrissrogers/grunt-wrap/blob/master/LICENSE-MIT"
   }],
   "main": "grunt.js",
-  "bin": "bin/grunt-move",
+  "bin": "bin/grunt-wrap",
   "engines": {
     "node": "*"
   },
