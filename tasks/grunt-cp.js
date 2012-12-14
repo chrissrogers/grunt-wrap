@@ -16,6 +16,8 @@
 
 module.exports = function(grunt) {
 
+  var wrap;
+
   // ==========================================================================
   // TASKS
   // ==========================================================================
@@ -29,7 +31,7 @@ module.exports = function(grunt) {
     // Concat specified files.
     if (files) {
       files.map(function (filepath) {
-        src = grunt.helper('wrap', filepath, {wrapper: task.data.wrapper});
+        src = wrap(filepath, {wrapper: task.data.wrapper});
         grunt.file.write(path.join(task.file.dest, filepath), src);
       });
     }
@@ -45,11 +47,11 @@ module.exports = function(grunt) {
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('wrap', function (filepath, options) {
-    options = grunt.utils._.defaults(options || {}, {
+  wrap = function (filepath, options) {
+    options = grunt.util._.defaults(options || {}, {
       wrapper: ['', '']
     });
-    return options.wrapper[0] + grunt.task.directive(filepath, grunt.file.read) + options.wrapper[1];
-  });
+    return options.wrapper[0] + grunt.file.read(filepath) + options.wrapper[1];
+  }
 
 };
