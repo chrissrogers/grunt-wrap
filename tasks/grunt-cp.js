@@ -16,40 +16,43 @@
 
 module.exports = function(grunt) {
 
+  var wrap;
+
   // ==========================================================================
   // TASKS
   // ==========================================================================
 
   grunt.registerMultiTask('wrap', 'Wrap files.', function () {
-    var files = grunt.file.expandFiles(this.file.src),
-        path = require('path'),
-        task = this,
+    var path = require('path'),
         src;
 
     // Concat specified files.
-    if (files) {
-      files.map(function (filepath) {
-        src = grunt.helper('wrap', filepath, {wrapper: task.data.wrapper});
-        grunt.file.write(path.join(task.file.dest, filepath), src);
-      });
-    }
+
+    this.files.forEach(function(file) {
+      if (!file.src) return;
+      
+      file.src.map(function(filepath) {
+        src = wrap(filepath, { wrapper: this.data.wrapper });
+        grunt.file.write(path.join(this.data.dest, filepath), src);
+      }, this);
+    }, this);
 
     // Fail task if errors were logged.
     if (this.errorCount) return false;
 
     // Otherwise, print a success message.
-    grunt.log.writeln('Wrapped files created in "' + this.file.dest + '".');
+    grunt.log.writeln('Wrapped files created in "' + this.data.dest + '".');
   });
 
   // ==========================================================================
   // HELPERS
   // ==========================================================================
 
-  grunt.registerHelper('wrap', function (filepath, options) {
-    options = grunt.utils._.defaults(options || {}, {
+  wrap = function (filepath, options) {
+    options = grunt.util._.defaults(options || {}, {
       wrapper: ['', '']
     });
-    return options.wrapper[0] + grunt.task.directive(filepath, grunt.file.read) + options.wrapper[1];
-  });
+    return options.wrapper[0] + grunt.file.read(filepath) + options.wrapper[1];
+  }
 
 };
