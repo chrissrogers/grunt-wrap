@@ -23,24 +23,25 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('wrap', 'Wrap files.', function () {
-    var files = grunt.file.expandFiles(this.file.src),
-        path = require('path'),
-        task = this,
+    var path = require('path'),
         src;
 
     // Concat specified files.
-    if (files) {
-      files.map(function (filepath) {
-        src = wrap(filepath, {wrapper: task.data.wrapper});
-        grunt.file.write(path.join(task.file.dest, filepath), src);
-      });
-    }
+
+    this.files.forEach(function(file) {
+      if (!file.src) return;
+      
+      file.src.map(function(filepath) {
+        src = wrap(filepath, { wrapper: this.data.wrapper });
+        grunt.file.write(path.join(this.data.dest, filepath), src);
+      }, this);
+    }, this);
 
     // Fail task if errors were logged.
     if (this.errorCount) return false;
 
     // Otherwise, print a success message.
-    grunt.log.writeln('Wrapped files created in "' + this.file.dest + '".');
+    grunt.log.writeln('Wrapped files created in "' + this.data.dest + '".');
   });
 
   // ==========================================================================
