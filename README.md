@@ -11,9 +11,6 @@ Then add this line to your project's ``grunt.js`` gruntfile:
 grunt.loadNpmTasks('grunt-wrap');
 ```
 
-[grunt]: https://github.com/gruntjs/grunt
-[getting_started]: https://github.com/gruntjs/grunt/blob/master/docs/getting_started.md
-
 ## Documentation
 Configure which files to be copied in your `initConfig`:
 
@@ -35,13 +32,21 @@ grunt.initConfig({
 });
 ```
 
+## Grunt 0.3.x support
+v0.1.0 is the last version to support grunt 0.3.x. This version is frozen and available [here][legacy_grunt3]
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests
 for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
-* 2012 Oct 4 - v0.1.0 - Initial release.
+* 2013 Jan 31 - v0.2.0 - Implements grunt 0.4 compatibility measures, breaking support for grunt 0.3.x
+* 2012 Oct 4  - v0.1.0 - Initial release.
 
 ## License
-Copyright (c) 2012 Christopher Rogers
+Copyright (c) 2013 Christopher Rogers
 Licensed under the MIT license.
+
+[grunt]: https://github.com/gruntjs/grunt
+[getting_started]: https://github.com/gruntjs/grunt/blob/master/docs/getting_started.md
+[legacy_grunt3]: https://github.com/chrissrogers/grunt-wrap/tree/legacy/grunt-0.3.x
