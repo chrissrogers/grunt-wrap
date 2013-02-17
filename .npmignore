@@ -1,0 +1,10 @@
+*.log
+*.tgz
+
+.gitignore
+.npmignore
+
+/node_modules/
+/test/
+Gruntfile.js
+
