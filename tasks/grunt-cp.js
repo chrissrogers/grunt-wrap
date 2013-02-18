@@ -15,6 +15,7 @@
 // }
 
 module.exports = function(grunt) {
+  "use strict";
 
   var wrap;
 
@@ -29,7 +30,9 @@ module.exports = function(grunt) {
     // Concat specified files.
 
     this.files.forEach(function(file) {
-      if (!file.src) return;
+      if (!file.src) {
+        return;
+      }
       
       file.src.map(function(filepath) {
         src = wrap(filepath, { wrapper: this.data.wrapper });
@@ -38,7 +41,9 @@ module.exports = function(grunt) {
     }, this);
 
     // Fail task if errors were logged.
-    if (this.errorCount) return false;
+    if (this.errorCount) {
+      return false;
+    }
 
     // Otherwise, print a success message.
     grunt.log.writeln('Wrapped files created in "' + this.data.dest + '".');
@@ -53,6 +58,6 @@ module.exports = function(grunt) {
       wrapper: ['', '']
     });
     return options.wrapper[0] + grunt.file.read(filepath) + options.wrapper[1];
-  }
+  };
 
 };
