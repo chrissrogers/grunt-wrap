@@ -25,6 +25,12 @@ grunt.initConfig({
       src: ['assets/*.js'],
       dest: 'dist/',
       wrapper: ['define(function (require, exports, module) {\n', '\n});']
+      // wrapper can also be a function, like so:
+      //
+      // wrapper: function(filepath, options) {
+      //   // ...
+      //   return ['define(function (require, exports, module) {\n', '\n});'];
+      // }
     }
   },
 
