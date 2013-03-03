@@ -6,6 +6,9 @@
   "author": {
     "name": "Christopher Rogers"
   },
+  "contributors": [
+    "cha0s <nodejs@therealcha0s.net> (https://github.com/cha0s)"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/chrissrogers/grunt-wrap.git"
