@@ -11,6 +11,11 @@
 //     src: ['assets/*.js'],
 //     dest: 'dist/',
 //     wrapper: ['define(function (require, exports, module) {\n', '\n});']
+//     // Or... 
+//     wrapper: function(filepath, options) {
+//       // ...
+//       return ['define(function (require, exports, module) {\n', '\n});'];
+//     }
 //   }
 // }
 
@@ -57,7 +62,11 @@ module.exports = function(grunt) {
     options = grunt.util._.defaults(options || {}, {
       wrapper: ['', '']
     });
-    return options.wrapper[0] + grunt.file.read(filepath) + options.wrapper[1];
+    var wrapper = options.wrapper;
+    if ('function' === typeof wrapper) {
+      wrapper = wrapper(filepath, options);
+    }
+    return wrapper[0] + grunt.file.read(filepath) + wrapper[1];
   };
 
 };
