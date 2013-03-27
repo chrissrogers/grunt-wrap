@@ -29,29 +29,33 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   grunt.registerMultiTask('wrap', 'Wrap files.', function () {
-    var path = require('path'),
-        src;
+
+	var options = this.options({
+      wrapper: ['', ''],
+      indent: '',
+      separator: grunt.util.linefeed
+    });
 
     // Concat specified files.
 
-    this.files.forEach(function(file) {
-      if (!file.src) {
-        return;
-      }
+    this.files.forEach(function(f) {
       
-      file.src.map(function(filepath) {
-        src = wrap(filepath, this.data);
-        grunt.file.write(path.join(this.data.dest, filepath), src);
-      }, this);
+      var output = f.src.filter(function(filepath) {
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+      }).map(function(filepath) {
+        return wrap(filepath, options);
+      }).join(grunt.util.normalizelf(options.separator));
+      
+      grunt.file.write(f.dest, output);
+      grunt.log.writeln('File ' + f.dest + ' created.');
     }, this);
-
-    // Fail task if errors were logged.
-    if (this.errorCount) {
-      return false;
-    }
-
-    // Otherwise, print a success message.
-    grunt.log.writeln('Wrapped files created in "' + this.data.dest + '".');
+    
   });
 
   // ==========================================================================
@@ -59,10 +63,6 @@ module.exports = function(grunt) {
   // ==========================================================================
 
   wrap = function (filepath, options) {
-    options = grunt.util._.defaults(options || {}, {
-      wrapper: ['', ''],
-      indent: ''
-    });
     var wrapper = options.wrapper;
     if ('function' === typeof wrapper) {
       wrapper = wrapper(filepath, options);
