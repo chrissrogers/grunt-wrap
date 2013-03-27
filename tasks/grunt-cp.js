@@ -40,7 +40,7 @@ module.exports = function(grunt) {
       }
       
       file.src.map(function(filepath) {
-        src = wrap(filepath, { wrapper: this.data.wrapper });
+        src = wrap(filepath, this.data);
         grunt.file.write(path.join(this.data.dest, filepath), src);
       }, this);
     }, this);
@@ -60,13 +60,20 @@ module.exports = function(grunt) {
 
   wrap = function (filepath, options) {
     options = grunt.util._.defaults(options || {}, {
-      wrapper: ['', '']
+      wrapper: ['', ''],
+      indent: ''
     });
     var wrapper = options.wrapper;
     if ('function' === typeof wrapper) {
       wrapper = wrapper(filepath, options);
     }
-    return wrapper[0] + grunt.file.read(filepath) + wrapper[1];
+    var fileContents = grunt.file.read(filepath);
+    if (options.indent) {
+    	fileContents = fileContents.split('\n').map(function(line) {
+    		return options.indent + line;
+    	}).join('\n');
+    }
+    return wrapper[0] + fileContents + wrapper[1];
   };
 
 };
