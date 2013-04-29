@@ -2,3 +2,6 @@
 *.tgz
 
 /node_modules/
+
+/test/tmp
+/.idea

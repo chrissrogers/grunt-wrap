@@ -1,14 +1,11 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
   "use strict";
-
   var files = ['Gruntfile.js', 'tasks/**/*.js'];
   //var files = ['Gruntfile.js', 'tasks/**/*.js', 'test/**/*.js'];
 
-  // Project configuration.
+  var path = require('path');
+
   grunt.initConfig({
-    //test: {
-    //  files: ['test/**/*.js']
-    //},
     watch: {
       files: files,
       tasks: 'default'
@@ -29,16 +26,57 @@ module.exports = function(grunt) {
         es5: true
       },
       all: files
+    },
+    wrap: {
+      basics: {
+        cwd: 'test/fixtures/',
+        src: ['**/basic*.js'],
+        dest: 'test/tmp/',
+        expand: true,
+        options: {
+          seperator:'\n',
+          indent:'/* indent */',
+          wrapper: [grunt.file.read('test/fixtures/header.txt'), grunt.file.read('test/fixtures/footer.txt')]
+        }
+      },
+      func: {
+        cwd: 'test/fixtures/',
+        src: ['extra.js'],
+        dest: 'test/tmp/wrapfunction',
+        expand: true,
+        options: {
+          seperator:'\n',
+          testValue: 'yo!',
+          wrapper: function(filepath, options){
+            var name = path.basename(filepath);
+
+            return [
+              '// ' + name + ' start ' +  options.testValue,
+              '// ' + name + ' end'
+            ];
+          }
+        }
+      }
+    },
+    clean: {
+      test: ['test/tmp']
+    },
+    nodeunit: {
+      all: ['test/**/*_test.js']
     }
   });
 
   grunt.loadNpmTasks("grunt-contrib-jshint");
   grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  // Load local tasks.
   grunt.loadTasks('tasks');
 
-  // Default task.
-  grunt.registerTask('default', 'jshint');
+  grunt.registerTask('default', ['test']);
+  grunt.registerTask('test', ['clean', 'wrap', 'nodeunit']);
 
+  //editor buttons
+  grunt.registerTask('edit_01', ['test']);
+  grunt.registerTask('edit_02', ['clean']);
 };
