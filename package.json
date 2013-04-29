@@ -1,7 +1,7 @@
 {
   "name": "grunt-wrap",
   "description": "A Grunt plugin for wrapping project text files",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/chrissrogers/grunt-wrap",
   "author": {
     "name": "Christopher Rogers"
