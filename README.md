@@ -46,6 +46,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
+* 2013 Arp 30 - v0.3.0 - Rewrite with improved grunt file/option convention support, added unit test (Bartvds), grunt version bump to 0.4.1
 * 2013 Jan 31 - v0.2.0 - Implements grunt 0.4 compatibility measures, breaking support for grunt 0.3.x
 * 2012 Oct 4  - v0.1.0 - Initial release.
 
