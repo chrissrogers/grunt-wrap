@@ -48,10 +48,10 @@ exports.gruntwrap = {
 
     var expected, actual;
 
-    test.ok(grunt.file.exists('test/tmp/wrapfunction/extra.js'), 'should respect extra.js');
+    test.ok(grunt.file.exists('test/tmp/wrapfunction/extra.tagged.js'), 'should output extra.tagged.js');
 
-    expected= grunt.file.read('test/expected/wrapfunction/extra.js');
-    actual = grunt.file.read('test/tmp/wrapfunction/extra.js');
+    expected= grunt.file.read('test/expected/wrapfunction/extra.tagged.js');
+    actual = grunt.file.read('test/tmp/wrapfunction/extra.tagged.js');
     test.equal(expected, actual, 'should wrap extra.js using function correctly');
 
     test.done();

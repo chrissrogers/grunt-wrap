@@ -44,6 +44,9 @@ module.exports = function (grunt) {
         src: ['extra.js'],
         dest: 'test/tmp/wrapfunction',
         expand: true,
+        rename: function(dest, src) {
+          return path.join(dest, src.replace(/(\.[\w]+)$/g, '.tagged$1'));
+        },
         options: {
           seperator:'\n',
           testValue: 'yo!',
