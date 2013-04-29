@@ -30,7 +30,7 @@ module.exports = function (grunt) {
     wrap: {
       basics: {
         cwd: 'test/fixtures/',
-        src: ['**/basic*.js'],
+        src: ['**/basic*.js', 'nonexisting.js'],
         dest: 'test/tmp/',
         expand: true,
         options: {

@@ -24,20 +24,24 @@ grunt.initConfig({
     basic: {
       src: ['assets/*.js'],
       dest: 'dist/',
-      wrapper: ['define(function (require, exports, module) {\n', '\n});']
+      options: {
+        wrapper: ['define(function (require, exports, module) {\n', '\n});']
+      }
     },
     advanced: {
       cwd: 'files/'
       expand: true,
       src: ['**/*.js', '**/*.css'],
       dest: 'dist/',
-      seperator: '\n',
-      indent: '\t',
-      wrapper: function(filepath, options) {
-        return ['// ' + filepath, ''];
-      },
-      rename: function(dest, src) {
-        return path.join(dest, src.replace(/(\.[\w]+)$/g, '.tagged$1'));
+      options: {
+        seperator: '\n',
+        indent: '\t',
+        wrapper: function(filepath, options) {
+          return ['// ' + filepath, ''];
+        },
+        rename: function(dest, src) {
+           return path.join(dest, src.replace(/(\.[\w]+)$/g, '.tagged$1'));
+        }
       }
     }
   },
