@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       
       file.src.map(function(filepath) {
         src = wrap(filepath, { wrapper: this.data.wrapper });
-        grunt.file.write(path.join(this.data.dest, filepath), src);
+        grunt.file.write(path.join(this.data.dest || '', filepath), src);
       }, this);
     }, this);
 
