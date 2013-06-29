@@ -1,13 +1,14 @@
 {
   "name": "grunt-wrap",
   "description": "A Grunt plugin for wrapping project text files",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/chrissrogers/grunt-wrap",
   "author": {
     "name": "Christopher Rogers"
   },
   "contributors": [
-    "cha0s <nodejs@therealcha0s.net> (https://github.com/cha0s)"
+    "cha0s <nodejs@therealcha0s.net> (https://github.com/cha0s)",
+    "Bartvds <bartvanderschoor@gmail.com> (https://github.com/Bartvds)"
   ],
   "repository": {
     "type": "git",
@@ -16,10 +17,12 @@
   "bugs": {
     "url": "https://github.com/chrissrogers/grunt-wrap/issues"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "https://github.com/chrissrogers/grunt-wrap/blob/master/LICENSE-MIT"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/chrissrogers/grunt-wrap/blob/master/LICENSE-MIT"
+    }
+  ],
   "main": "grunt.js",
   "bin": "bin/grunt-wrap",
   "engines": {
@@ -29,9 +32,13 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.1",
-    "grunt-contrib-watch": "~0.2.0"
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt": "~0.4.1"
   },
-  "keywords": ["gruntplugin"]
+  "keywords": [
+    "gruntplugin"
+  ]
 }

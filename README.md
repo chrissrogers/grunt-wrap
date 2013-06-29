@@ -21,16 +21,28 @@ grunt.initConfig({
 
   // wrap my modules with define
   wrap: {
-    modules: {
+    basic: {
       src: ['assets/*.js'],
       dest: 'dist/',
-      wrapper: ['define(function (require, exports, module) {\n', '\n});']
-      // wrapper can also be a function, like so:
-      //
-      // wrapper: function(filepath, options) {
-      //   // ...
-      //   return ['define(function (require, exports, module) {\n', '\n});'];
-      // }
+      options: {
+        wrapper: ['define(function (require, exports, module) {\n', '\n});']
+      }
+    },
+    advanced: {
+      cwd: 'files/'
+      expand: true,
+      src: ['**/*.js', '**/*.css'],
+      dest: 'dist/',
+      options: {
+        seperator: '\n',
+        indent: '\t',
+        wrapper: function(filepath, options) {
+          return ['// ' + filepath, ''];
+        },
+        rename: function(dest, src) {
+           return path.join(dest, src.replace(/(\.[\w]+)$/g, '.tagged$1'));
+        }
+      }
     }
   },
 
@@ -46,6 +58,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 for any new or changed functionality. Lint and test your code using [grunt][grunt].
 
 ## Release History
+* 2013 Apr 30 - v0.3.0 - Rewrite with grunt file/option convention, unit test (Bartvds), grunt version to 0.4.1
 * 2013 Jan 31 - v0.2.0 - Implements grunt 0.4 compatibility measures, breaking support for grunt 0.3.x
 * 2012 Oct 4  - v0.1.0 - Initial release.
 
