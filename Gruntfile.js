@@ -77,7 +77,7 @@ module.exports = function (grunt) {
   grunt.loadTasks('tasks');
 
   grunt.registerTask('default', ['test']);
-  grunt.registerTask('test', ['clean', 'wrap', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'jshint', 'wrap', 'nodeunit']);
 
   //editor buttons
   grunt.registerTask('edit_01', ['test']);
