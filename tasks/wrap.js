@@ -43,9 +43,8 @@ module.exports = function (grunt) {
         if (grunt.file.isDir(src)) {
           grunt.file.mkdir(dest);
         } else {
-          grunt.log.write('Wrapping ' + src.cyan + ' -> ' + dest.cyan + '...');
+          grunt.verbose.writeln(['Wrapping ' + src.cyan + ' -> ' + dest.cyan + '...']);
           grunt.file.write(dest, wrap(src, options));
-          grunt.log.ok();
           counter++;
         }
       });
