@@ -34,7 +34,7 @@ grunt.initConfig({
       src: ['**/*.js', '**/*.css'],
       dest: 'dist/',
       options: {
-        seperator: '\n',
+        separator: '\n',
         indent: '\t',
         wrapper: function(filepath, options) {
           return ['// ' + filepath, ''];
