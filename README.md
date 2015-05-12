@@ -29,7 +29,7 @@ grunt.initConfig({
       }
     },
     advanced: {
-      cwd: 'files/'
+      cwd: 'files/',
       expand: true,
       src: ['**/*.js', '**/*.css'],
       dest: 'dist/',
