@@ -35,7 +35,13 @@ module.exports = function (grunt) {
 
       filePair.src.forEach(function (src) {
         if (detectDestType(filePair.dest) === 'directory') {
-          dest = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest || '', src));
+          if (isExpandedPair) {
+            dest = filePair.dest;
+          } else if (options.rename) {
+            dest = options.rename(filePair.dest || '', src);
+          } else {
+            dest = unixifyPath(path.join(filePair.dest || '', src));
+          }
         } else {
           dest = filePair.dest;
         }
@@ -43,9 +49,10 @@ module.exports = function (grunt) {
         if (grunt.file.isDir(src)) {
           grunt.file.mkdir(dest);
         } else {
-          grunt.log.write('Wrapping ' + src.cyan + ' -> ' + dest.cyan + '...');
+          if (options.debug) {
+            grunt.log.write('Wrapping ' + src.cyan + ' -> ' + dest.cyan + '...');
+          }
           grunt.file.write(dest, wrap(src, options));
-          grunt.log.ok();
           counter++;
         }
       });
@@ -64,7 +71,16 @@ module.exports = function (grunt) {
         return options.indent + line;
       }).join(grunt.util.linefeed);
     }
-    return wrapper[0] + options.separator + fileContents + options.separator + wrapper[1];
+    if (options.escape) {
+      var quoteChar = options.escape;
+      var bsRegexp = new RegExp('\\\\', 'g');
+      var quoteRegexp = new RegExp('\\' + quoteChar, 'g');
+      var nlReplace = '\\n' + quoteChar + ' +\n' + quoteChar;
+      var fileContentsEscaped = fileContents.replace(bsRegexp, '\\\\').replace(quoteRegexp, '\\' + quoteChar).replace(/\r?\n/g, nlReplace);
+      return wrapper[0] + options.separator + fileContentsEscaped + options.separator + wrapper[1];
+    } else {
+      return wrapper[0] + options.separator + fileContents + options.separator + wrapper[1];
+    }
   };
 
   var detectDestType = function (dest) {
